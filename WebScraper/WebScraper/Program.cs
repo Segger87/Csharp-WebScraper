@@ -9,23 +9,36 @@ namespace WebScraper
     {
         static void Main(string[] args)
         {
-            WebRequest request = WebRequest.Create("http://engineerverse.com/");
+            Program p = new Program();
 
+            Console.WriteLine("Which site would you like to scrape? (include http://)");
+            string siteToScrape = Console.ReadLine();
+
+            var responseFromServer = p.RequestWebsite(siteToScrape);
+            p.PrintToTxtFile(responseFromServer);
+
+            Console.ReadLine();
+        }
+
+        public string RequestWebsite(string url)
+        {
+            WebRequest request = WebRequest.Create(url);
             request.Credentials = CredentialCache.DefaultCredentials;
-
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Console.WriteLine(response.StatusDescription);
-
             Stream dataStream = response.GetResponseStream();
-
             StreamReader reader = new StreamReader(dataStream);
             string responseFromServer = reader.ReadToEnd();
             Console.WriteLine(responseFromServer);
-            File.WriteAllText(@"C:\Work\Training\WebScraper\Csharp-WebScraper\webData.txt", responseFromServer);
             reader.Close();
             dataStream.Close();
             response.Close();
-            Console.ReadLine();
+            return responseFromServer;
+
+        }
+        private void PrintToTxtFile(string response)
+        {
+            File.WriteAllText(@"C:\Work\Training\WebScraper\Csharp-WebScraper\webData.txt", response);
         }
     }
 }
