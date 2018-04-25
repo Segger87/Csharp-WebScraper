@@ -21,6 +21,7 @@ namespace WebScraper
             StreamReader reader = new StreamReader(dataStream);
             string responseFromServer = reader.ReadToEnd();
             Console.WriteLine(responseFromServer);
+            File.WriteAllText(@"C:\Work\Training\WebScraper\Csharp-WebScraper\webData.txt", responseFromServer);
             reader.Close();
             dataStream.Close();
             response.Close();
