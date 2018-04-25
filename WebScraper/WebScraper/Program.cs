@@ -14,8 +14,21 @@ namespace WebScraper
             Console.WriteLine("Which site would you like to scrape? (include http://)");
             string siteToScrape = Console.ReadLine();
 
+            Console.WriteLine("Would you lke to output in: \n 1) Txt File \n 2) Html");
+            string outputType = Console.ReadLine();
+
             var responseFromServer = p.RequestWebsite(siteToScrape);
-            p.PrintToTxtFile(responseFromServer);
+
+            if(outputType == "1")
+            {
+                p.PrintToTxtFile(responseFromServer);
+
+            }
+            else
+            {
+                p.PrintToHtmlFile(responseFromServer);
+
+            }
 
             Console.ReadLine();
         }
@@ -39,6 +52,11 @@ namespace WebScraper
         private void PrintToTxtFile(string response)
         {
             File.WriteAllText(@"C:\Work\Training\WebScraper\Csharp-WebScraper\webData.txt", response);
+        }
+
+        private void PrintToHtmlFile(string response)
+        {
+            File.WriteAllText(@"C:\Work\Training\WebScraper\Csharp-WebScraper\webDataHTML.html", response);
         }
     }
 }
