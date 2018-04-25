@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,8 +35,6 @@ namespace WebScraper
 				p.PrintToHtmlFile(responseFromServer);
 
 			}
-
-			//  CrawlerApis.Cse("turtles");
 
 			p.PullOutLinksFromGoogle();
 
@@ -87,6 +86,8 @@ namespace WebScraper
 					Console.WriteLine(m.Groups[1].Value);
 					Console.WriteLine();
 				}
+
+				File.WriteAllLines(@"C:\Work\Training\WebScraper\Csharp-WebScraper\webDataListOfSites.txt", listOfSites);
 
 			}
 		}
