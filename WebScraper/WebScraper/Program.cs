@@ -20,7 +20,7 @@ namespace WebScraper
 			Console.WriteLine("Would you lke to output in: \n 1) Txt File \n 2) Html");
 			string outputType = Console.ReadLine();
 
-			var responseFromServer = p.RequestWebsite(siteToScrape);
+			var responseFromServer = RequestWebsite(siteToScrape);
 
 			if (outputType == "1")
 			{
@@ -33,12 +33,17 @@ namespace WebScraper
 
 			}
 
-			p.PullOutLinksFromGoogle();
+			var sitesToBeCrawledFromGoogle = PullOutLinksFromGoogle();
+
+			foreach (var site in sitesToBeCrawledFromGoogle)
+			{
+				RequestWebsite(site);
+			}
 
 			Console.ReadLine();
 		}
 
-		public string RequestWebsite(string url)
+		public static string RequestWebsite(string url)
 		{
 			WebRequest request = WebRequest.Create(url);
 			request.Credentials = CredentialCache.DefaultCredentials;
@@ -64,7 +69,7 @@ namespace WebScraper
 			File.WriteAllText(@"C:\Work\Training\WebScraper\Csharp-WebScraper\webDataHTML.html", response);
 		}
 
-		private void PullOutLinksFromGoogle()
+		public static List<string> PullOutLinksFromGoogle()
 		{
 			Console.WriteLine("Extracting links....................");
 
@@ -79,7 +84,7 @@ namespace WebScraper
 
 				foreach (Match m in match)
 				{
-					var urlsExtracted = String.Concat(m.Groups[2].Value, m.Groups[3]);
+					var urlsExtracted = String.Concat(m.Groups[1], "://", m.Groups[2].Value, m.Groups[3]);
 					urlsExtracted = urlsExtracted.Replace("&amp", "");
 					listOfSites.Add(urlsExtracted);
 					Console.WriteLine(urlsExtracted);
@@ -88,6 +93,7 @@ namespace WebScraper
 
 				File.WriteAllLines(@"C:\Work\Training\WebScraper\Csharp-WebScraper\webDataListOfSites.txt", listOfSites);
 
+				return listOfSites;
 			}
 		}
 	}
