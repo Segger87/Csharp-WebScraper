@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
-using Google.Apis.Customsearch.v1;
 
 namespace WebScraper
 {
@@ -77,13 +74,15 @@ namespace WebScraper
 
 				List<string> listOfSites = new List<string>();
 
-				string search = @"<a\s+(?:[^>]*?\s+)?href=""([^""]*)""";
+				string search = @"(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?";
 				MatchCollection match = Regex.Matches(readAllText, search);
 
 				foreach (Match m in match)
 				{
-					listOfSites.Add(m.Groups[1].Value);
-					Console.WriteLine(m.Groups[1].Value);
+					var urlsExtracted = String.Concat(m.Groups[2].Value, m.Groups[3]);
+					urlsExtracted = urlsExtracted.Replace("&amp", "");
+					listOfSites.Add(urlsExtracted);
+					Console.WriteLine(urlsExtracted);
 					Console.WriteLine();
 				}
 
